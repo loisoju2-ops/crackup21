@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Detail — Crack Up Comedy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root{
+      --gold:#f4c542;
+      --black:#050505;
+      --panel:#0d0d0d;
+      --muted:#a7a7a7;
+      --white:#fff;
+      --line:rgba(255,255,255,.12);
+      --line2:rgba(255,255,255,.08);
+      --blue:#2f5bff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:var(--black);color:var(--white);
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      overflow-x:hidden;
+    }
+    body.no-scroll { overflow: hidden; }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+
+    /* ===== SITE HEADER (from index2) ===== */
+    .site-header {
+      background: #121212;
+      border-bottom: 1px solid #242424;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      padding: 0;
+    }
+
+    .header-main {
+      position: relative;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      background: #0D0D0D;
+    }
+
+    .nav-stack {
+      width: 100%;
+    }
+
+    .header-utility-nav,
+    .header-primary-nav {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      position: relative;
+    }
+
+    /* ===== TOP NAV (UTILITY) ===== */
+    .header-utility-nav {
+      border-bottom: 1px solid #242424;
+      font-size: 0.75rem;
+      color: #a9a9a9;
+      justify-content: space-between;
+    }
+
+    /* ===== SECOND NAV (PRIMARY) ===== */
+    .header-primary-nav {
+      min-height: 58px;
+      gap: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: #1a1a1a;
+      width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+    }
+
+    /* ===== BRAND TITLE CENTERED IN TOP NAV ===== */
+    .brand-title-in-nav {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .brand-title-in-nav .brand-name-main {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.6px;
+      line-height: 1.1;
+      white-space: nowrap;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Spacer to keep utility links right-aligned */
+    .utility-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: auto;
+    }
+
+    .header-utility-nav a,
+    .header-primary-nav a {
+      color: #cccccc;
+      white-space: nowrap;
+      transition: color 0.15s ease, opacity 0.15s ease;
+    }
+
+    .header-utility-nav a:hover,
+    .header-primary-nav a:hover {
+      color: #ffffff;
+    }
+
+    .nav-divider {
+      color: #3b3b3b;
+      font-weight: 300;
+      user-select: none;
+    }
+
+    /* ===== FLOATING LOGO ===== */
+    .header-logo-float {
+      position: absolute;
+      left: 5%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+      z-index: 150;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      overflow: visible;
+      gap: 0;
+      white-space: nowrap;
+    }
+
+    .header-logo {
+      width: 200px;
+      height: 100px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+      max-width: none;
+      max-height: none;
+    }
+
+    /* ===== LOCATION DROPDOWN (in primary nav) ===== */
+    .nav-location-wrapper {
+      position: relative;
+      margin-left: 7rem; /* pushes location to the right of the logo area */
+      flex-shrink: 0;
+    }
+
+    .nav-location-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #cccccc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #333333;
+      background: transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .nav-location-btn i.fa-map-marker-alt {
+      font-size: 1rem;
+      color: #f6c928;
+    }
+
+    .nav-location-btn .location-text {
+      color: #dddddd;
+    }
+
+    .nav-location-btn .caret {
+      font-size: 0.65rem;
+      color: #888888;
+      transition: transform 0.2s ease;
+      margin-left: 0.15rem;
+    }
+
+    .nav-location-btn:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    .nav-location-btn:hover .location-text {
+      color: #f6c928;
+    }
+
+    .nav-location-btn.open {
+      border-color: #f6c928;
+    }
+
+    .nav-location-btn.open .caret {
+      transform: rotate(180deg);
+    }
+
+    .location-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 180px;
+      background: #1a1a1a;
+      border: 1px solid #292929;
+      border-radius: 12px;
+      padding: 0.4rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+      z-index: 300;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .location-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .location-dropdown button {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #dddddd;
+      transition: background 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+
+    .location-dropdown button i {
+      font-size: 0.85rem;
+      color: #f6c928;
+      width: 16px;
+      text-align: center;
+    }
+
+    .location-dropdown button:hover {
+      background: #242424;
+      color: #ffffff;
+    }
+
+    .location-dropdown button.active {
+      background: #242424;
+      color: #f6c928;
+      font-weight: 700;
+    }
+
+    /* ===== SIGN IN ICON (end of primary nav) ===== */
+    .nav-signin-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: #cccccc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid #333333;
+      background: transparent;
+      transition: all 0.2s;
+      cursor: pointer;
+      margin-left: auto;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .nav-signin-icon i {
+      font-size: 1rem;
+    }
+
+    .nav-signin-icon:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    /* ===== SIGN IN PANEL ===== */
+    .signin-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 400;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .signin-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .signin-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: min(420px, 90vw);
+      background: #1a1a1a;
+      border: 1px solid #292929;
+      border-radius: 20px;
+      padding: 2rem;
+      z-index: 401;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .signin-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .signin-panel h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .signin-panel .signin-subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      margin-bottom: 1.5rem;
+    }
+
+    .signin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .signin-form label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cccccc;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    .signin-form input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #333333;
+      background: #0d0d0d;
+      color: #ffffff;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .signin-form input:focus {
+      outline: none;
+      border-color: #f6c928;
+    }
+
+    .signin-form input::placeholder {
+      color: #555555;
+    }
+
+    .signin-form button[type="submit"] {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 30px;
+      background: #f6c928;
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .signin-form button[type="submit"]:hover {
+      background: #e0b520;
+    }
+
+    .signin-panel .signin-footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a0a0a0;
+      margin-top: 1rem;
+    }
+
+    .signin-panel .signin-footer a {
+      color: #f6c928;
+      font-weight: 600;
+    }
+
+    .signin-panel .signin-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .signin-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #242424;
+      border: 1px solid #333333;
+      color: #ffffff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .signin-close:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    /* ===== MOBILE HAMBURGER ===== */
+    .menu-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      color: #ffffff;
+      font-size: 1.4rem;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+      justify-self: end;
+    }
+
+    .menu-toggle:hover {
+      background: #242424;
+      border-color: #f6c928;
+    }
+
+    /* ===== MOBILE NAV OVERLAY ===== */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-nav-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(320px, 85vw);
+      height: 100dvh;
+      background: #0a0a0a;
+      border-left: 1px solid #242424;
+      padding: 1.5rem 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      overflow-y: auto;
+    }
+
+    .mobile-nav-panel.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-nav-header .brand {
+      font-size: 1.1rem;
+    }
+
+    .mobile-nav-close {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      color: #ffffff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .mobile-nav-close:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mobile-nav-links a {
+      display: block;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #dddddd;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a.active {
+      background: #1a1a1a;
+      color: #f6c928;
+    }
+
+    .mobile-nav-links a.active {
+      font-weight: 600;
+    }
+
+    .mobile-nav-divider {
+      height: 1px;
+      background: #242424;
+      margin: 0.5rem 0;
+    }
+
+    /* ===== HERO ROW ===== */
+    .event-wrap{
+      width:min(1400px,94vw);margin:0 auto;
+      display:grid;grid-template-columns:1fr 400px;gap:28px;
+      padding:28px 0 0;
+      align-items:start;
+    }
+
+    /* LEFT: MEDIA */
+    .media-col{min-width:0}
+    .media-shell{position:relative}
+    .media-arrows{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 18px;pointer-events:none;z-index:15;
+    }
+    .media-arrows button{
+      pointer-events:auto;width:44px;height:44px;border-radius:50%;
+      background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);
+      color:#fff;font-size:20px;cursor:pointer;
+      display:grid;place-items:center;backdrop-filter:blur(6px);transition:.2s;
+    }
+    .media-arrows button:hover{background:rgba(0,0,0,.8);border-color:var(--gold);color:var(--gold)}
+
+    /* ===== VIDEO (21:9) ===== */
+    .hero{
+      position:relative;width:100%;
+      aspect-ratio: 21 / 9;
+      border-radius:14px;overflow:hidden;
+      background:#000;border:1px solid var(--line2);
+    }
+    .hero video{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;filter:brightness(.55) saturate(.9);
+    }
+    .hero:after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(circle at 70% 30%,rgba(244,197,66,.10),transparent 40%),
+        linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.05) 45%);
+    }
+
+    /* ===== NON-FUNCTIONAL VIDEO CONTROLS ===== */
+    .video-controls {
+      position: absolute;
+      bottom: 16px;
+      right: 18px;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      padding: 6px 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      pointer-events: none; /* non-functional */
+      user-select: none;
+    }
+
+    .video-ctrl-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      pointer-events: none; /* non-functional */
+      transition: none;
+      padding: 0;
+    }
+
+    .video-ctrl-btn i {
+      pointer-events: none;
+    }
+
+    /* Responsive tweak for small screens */
+    @media (max-width: 700px) {
+      .video-controls {
+        bottom: 10px;
+        right: 10px;
+        gap: 6px;
+        padding: 4px 8px;
+      }
+      .video-ctrl-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ===== E-FLYER ===== */
+    .eflier{
+      position:absolute;left:22px;top:22px;
+      width:230px;height:305px;z-index:20;
+      border-radius:12px;overflow:hidden;cursor:zoom-in;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 18px 50px rgba(0,0,0,.7);
+      transition:left .45s cubic-bezier(.22,.8,.28,1),
+                 top .45s cubic-bezier(.22,.8,.28,1),
+                 width .45s cubic-bezier(.22,.8,.28,1),
+                 height .45s cubic-bezier(.22,.8,.28,1),
+                 border-radius .45s ease,
+                 box-shadow .45s ease;
+      display:block;
+      animation:floatFlyer 4s ease-in-out infinite;
+    }
+    .eflier img{
+      width:100%;height:100%;object-fit:cover;display:block;
+      transition:object-fit .3s ease;
+    }
+
+    .eflier:not(.expanded):hover{
+      box-shadow:0 22px 60px rgba(244,197,66,.25);
+    }
+
+    .eflier.expanded{
+      left:0;top:0;
+      width:100%;height:100%;
+      border-radius:14px;
+      border-color:transparent;
+      box-shadow:none;
+      animation:none;
+      z-index:60;
+      cursor:zoom-out;
+    }
+    .eflier.expanded img{
+      object-fit:contain;
+      background:#000;
+    }
+
+    .eflier:after{
+      content:"CLICK TO EXPAND ⤢";
+      position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+      white-space:nowrap;background:rgba(0,0,0,.75);color:#fff;
+      font-size:9px;font-weight:900;padding:6px 10px;border-radius:99px;
+      letter-spacing:.08em;pointer-events:none;transition:opacity .3s;
+    }
+    .eflier.expanded:after{opacity:0}
+
+    @keyframes floatFlyer{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-7px) rotate(.4deg)}
+    }
+
+    .media-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+    .media-dots span{
+      width:34px;height:4px;border-radius:99px;background:#2b2b2b;
+      transition:.2s;cursor:pointer;
+    }
+    .media-dots span.active{background:#fff}
+
+    /* ===== ABOUT ===== */
+    .about-col{ margin-top:10px; }
+
+    .pill-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      background:#141414;border:1px solid var(--line2);
+      padding:11px 18px;border-radius:99px;
+      font-size:13px;color:#e8e8e8;font-weight:500;
+    }
+    .pill svg{width:16px;height:16px;stroke:#ddd;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+    .about-col h2{font-size:22px;font-weight:800;margin:0 0 14px;letter-spacing:-.01em}
+    .about-col p{color:#d6d6d6;line-height:1.75;font-size:14.5px;margin:0 0 16px}
+    .about-col .walkins{color:#cfcfcf;font-style:italic;margin-top:20px}
+
+    /* ===== VENUE SIDE ===== */
+    .venue-side{
+      margin-top:24px;
+      padding-top:20px;
+      border-top:1px solid var(--line2);
+    }
+    .venue-side h3{font-size:20px;font-weight:800;margin:0 0 18px;letter-spacing:-.01em}
+    .venue-block{padding:20px 0;border-top:1px solid var(--line2)}
+    .venue-block:first-of-type{border-top:0;padding-top:0}
+    .venue-block b{display:block;font-size:14.5px;font-weight:800;margin-bottom:8px}
+    .venue-block p{margin:0;color:#c6c6c6;font-size:13.5px;line-height:1.6}
+    .venue-block.with-arrow{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .venue-block.with-arrow .txt{flex:1}
+    .arrow-btn{
+      width:36px;height:36px;border-radius:50%;border:1px solid var(--line);
+      display:grid;place-items:center;color:#ddd;cursor:pointer;transition:.2s;
+      flex-shrink:0;background:none;font-size:16px;
+    }
+    .arrow-btn:hover{border-color:var(--gold);color:var(--gold);background:#141414}
+
+    .share-row{display:flex;gap:10px;margin-top:14px}
+    .share-row a{
+      width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+      display:grid;place-items:center;font-size:11px;font-weight:800;color:#ddd;
+    }
+    .share-row a:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* ===== BOOKING PANEL ===== */
+    .booking-panel{
+      background:var(--panel);border:1px solid var(--line2);
+      border-radius:14px;padding:26px 24px;align-self:start;
+      position:sticky;top:88px;
+    }
+    .booking-title{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:0 0 6px}
+    .booking-time{font-size:22px;font-weight:700;color:#fff;margin:0 0 20px}
+
+    .cal-box{border:1px solid var(--line2);border-radius:12px;padding:16px 14px;background:#0a0a0a}
+    .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .cal-head .month-label{font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px}
+    .cal-head .nav-arrows{display:flex;gap:4px}
+    .cal-head .nav-arrows button{background:none;border:0;color:#ddd;cursor:pointer;font-size:16px;padding:2px 6px;border-radius:6px}
+    .cal-head .nav-arrows button:hover{background:#1c1c1c;color:var(--gold)}
+    .today-btn{background:#1f1f1f;border:1px solid #333;color:#eee;font-size:11px;font-weight:700;padding:6px 12px;border-radius:99px;cursor:pointer}
+    .today-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+    .cal-grid .dow{font-size:11px;font-weight:700;color:#888;padding:6px 0;letter-spacing:.05em}
+    .cal-grid .day{font-size:13px;color:#ddd;padding:8px 0;border-radius:8px;cursor:pointer;transition:.15s}
+    .cal-grid .day:hover{background:#1c1c1c;color:#fff}
+    .cal-grid .day.muted{color:#4a4a4a;cursor:default}
+    .cal-grid .day.muted:hover{background:none}
+    .cal-grid .day.active{background:var(--blue);color:#fff;font-weight:800}
+    .cal-grid .day.circled{border:1px solid #555}
+    /* ===== DISABLED PAST DATES ===== */
+    .cal-grid .day.past-date{
+      color:#4d4d4d;
+      opacity:0.35;
+      cursor:not-allowed;
+      pointer-events:none;
+    }
+    .cal-grid .day.past-date:hover{background:none;color:#4d4d4d}
+
+    .time-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .time-chip{
+      background:#1a1a1a;border:1px solid #2b2b2b;color:#eee;
+      font-size:12px;font-weight:600;padding:9px 16px;border-radius:99px;
+      cursor:pointer;transition:.15s;
+    }
+    .time-chip:hover{border-color:var(--gold);color:var(--gold)}
+    .time-chip.active{background:#fff;color:#000;border-color:#fff;font-weight:800}
+
+    .ticket{
+      display:block;width:100%;text-align:center;
+      background:var(--gold);color:#0a0a0a;font-weight:900;
+      padding:16px 18px;border-radius:99px;margin:22px 0 4px;
+      transition:.2s;font-size:14px;letter-spacing:.02em;
+    }
+    .ticket:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(244,197,66,.25)}
+
+    /* ===== LIVE STREAM TITLE (YELLOW FONT) ===== */
+    .livestream-title{
+      display:flex;align-items:center;justify-content:center;gap:12px;
+      margin:20px 0 0;
+      font-size:18px;font-weight:900;letter-spacing:.06em;
+      text-transform:uppercase;
+      color:#f6c928;
+    }
+    .livestream-title img{
+      width:70px;height:90px;object-fit:contain;border-radius:8px;
+      flex-shrink:0;
+    }
+    .livestream-title .live-dot{
+      width:9px;height:9px;border-radius:50%;background:#ff3b3b;
+      box-shadow:0 0 0 0 rgba(255,59,59,.7);
+      animation:pulseDot 1.6s infinite;
+      flex-shrink:0;
+    }
+    @keyframes pulseDot{
+      0%{box-shadow:0 0 0 0 rgba(255,59,59,.7)}
+      70%{box-shadow:0 0 0 8px rgba(255,59,59,0)}
+      100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}
+    }
+
+    /* ===== AFRICAN DIASPORA LARGE LOGO ===== */
+    .african-diaspora-logo-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:18px 0 0;
+      padding:0;
+      
+    }
+    .african-diaspora-logo-wrap img{
+      width:100%;
+      max-width:180px;
+      height:auto;
+      object-fit:contain;
+      display:block;
+      filter:drop-shadow(0 6px 18px rgba(0,0,0,.6));
+      transition:transform .25s ease, filter .25s ease;
+    }
+    .african-diaspora-logo-wrap img:hover{
+      transform:scale(1.03);
+      filter:drop-shadow(0 8px 24px rgba(246,201,40,.35));
+    }
+
+    .socials{display:flex;gap:9px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line2)}
+    .socials a{
+      width:36px;height:36px;border:1px solid var(--line);
+      border-radius:50%;display:grid;place-items:center;
+      font-size:11px;font-weight:800;color:#ddd;
+    }
+    .socials a:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* ===== FOOTER ===== */
+    footer{border-top:1px solid var(--line2);background:#030303;padding:50px 5vw;color:#999}
+    .footer-inner{width:min(1400px,94vw);margin:auto;display:flex;justify-content:space-between;gap:30px}
+    .footer-brand{color:#fff;font-weight:900;font-size:18px}
+    .footer-brand span{color:var(--gold)}
+    .footer-inner p{margin:8px 0 0;font-size:13px}
+    .footer-links{display:flex;gap:22px;font-size:12px;align-items:center}
+    .footer-links a:hover{color:var(--gold)}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1040px){
+      .event-wrap{grid-template-columns:1fr;gap:22px}
+      .booking-panel{position:relative;top:auto;order:2}
+      .media-col{order:1}
+      .hero{ aspect-ratio: 21 / 9; }
+    }
+    @media(max-width:900px){
+      .header-main { padding: 0 1.25rem; }
+      .header-logo-float { display: none; }
+      .brand-title-in-nav .brand-name-main { font-size: 1.2rem; }
+
+      .header-utility-nav {
+        min-height: 38px;
+        padding-left: 0;
+        padding-right: 48px;
+        gap: 0.9rem;
+        font-size: 0.7rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .header-utility-nav::-webkit-scrollbar { display: none; }
+
+      .header-primary-nav {
+        min-height: 52px;
+        padding-left: 0;
+        padding-right: 48px;
+        gap: 1.1rem;
+        font-size: 0.78rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scrollbar-width: none;
+      }
+      .header-primary-nav::-webkit-scrollbar { display: none; }
+
+      .nav-location-wrapper {
+        margin-left: 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 120;
+      }
+
+      .event-wrap{width:94vw}
+      .hero{ aspect-ratio: 16 / 9; }
+      .eflier{width:150px;height:200px;left:14px;top:14px}
+      .booking-panel{padding:20px 16px}
+      .booking-title{font-size:24px}
+      .booking-time{font-size:18px}
+      .footer-inner{flex-direction:column}
+      .media-arrows button{width:36px;height:36px;font-size:16px}
+      .african-diaspora-logo-wrap img{max-width:220px}
+    }
+    @media(max-width:400px){
+      .brand-title-in-nav .brand-name-main { font-size: 1rem; }
+      .livestream-title{font-size:15px}
+      .livestream-title img{width:32px;height:32px}
+      .african-diaspora-logo-wrap img{max-width:180px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SITE HEADER (from index2) ===== -->
+<header class="site-header">
+  <div class="header-main">
+    <!-- Floating logo -->
+    <div class="header-logo-float">
+      <img class="header-logo" src="Images\ChatGPT Image Jun 26, 2026, 01_02_48 PM.png" alt="Crack Up Comedy Logo" style="background: transparent;">
+    </div>
+
+    <div class="nav-stack">
+      <!-- TOP NAV (UTILITY) -->
+      <nav class="header-utility-nav" aria-label="Utility navigation">
+        <div class="brand-title-in-nav"></div>
+        <div class="utility-links">
+          <a href="index.html">Crack Up Venues</a>
+          <span class="nav-divider">|</span>
+          <a href="community.html">Community</a>
+        </div>
+      </nav>
+
+      <!-- SECOND NAV (PRIMARY) -->
+      <nav class="header-primary-nav" aria-label="Main navigation">
+        <!-- Location dropdown -->
+        <div class="nav-location-wrapper" id="locationWrapper">
+          <button class="nav-location-btn" id="locationToggle" type="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="location-text" id="locationText">Calabar</span>
+            <i class="fas fa-chevron-down caret"></i>
+          </button>
+
+          <div class="location-dropdown" id="locationDropdown" role="menu">
+            <button type="button" data-location="Calabar" class="active" role="menuitem">
+              <i class="fas fa-city"></i> Calabar
+            </button>
+            <button type="button" data-location="Detroit" role="menuitem">
+              <i class="fas fa-city"></i> Detroit
+            </button>
+          </div>
+        </div>
+
+        <!-- Sign in icon -->
+        <button class="nav-signin-icon" id="signinToggle" type="button" aria-label="Sign in">
+          <i class="fas fa-user-circle"></i>
+          <span>Sign In</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<!-- ===== SIGN IN PANEL ===== -->
+<div class="signin-overlay" id="signinOverlay"></div>
+<div class="signin-panel" id="signinPanel">
+  <button class="signin-close" id="signinClose" aria-label="Close sign in">&times;</button>
+  <h2>Welcome Back</h2>
+  <p class="signin-subtitle">Sign in to your Crack Up Comedy account</p>
+
+  <form class="signin-form" onsubmit="event.preventDefault(); alert('Sign in functionality coming soon!');">
+    <div>
+      <label for="signin-email">Email Address</label>
+      <input type="email" id="signin-email" placeholder="you@example.com" required>
+    </div>
+    <div>
+      <label for="signin-password">Password</label>
+      <input type="password" id="signin-password" placeholder="Enter your password" required>
+    </div>
+    <button type="submit">Sign In</button>
+  </form>
+
+  <p class="signin-footer">
+    Don't have an account? <a href="register.html">Register here</a>
+  </p>
+</div>
+
+<!-- ===== MOBILE NAV OVERLAY ===== -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay">
+  <div class="mobile-nav-panel" id="mobileNavPanel">
+    <div class="mobile-nav-header">
+      <span class="brand">Menu</span>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
+    </div>
+
+    <nav class="mobile-nav-links">
+      <a class="active" href="index.html">All Events</a>
+      <a href="community.html">Join Membership</a>
+      <a href="register.html">Register</a>
+      <div class="mobile-nav-divider"></div>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO ROW -->
+<main class="event-wrap">
+  <section class="media-col">
+    <div class="media-shell">
+      <div class="media-arrows">
+        <button aria-label="Previous">‹</button>
+        <button aria-label="Next">›</button>
+      </div>
+
+      <div class="hero">
+        <video id="heroVideo" autoplay muted loop playsinline
+          poster="Images/ChatGPT Image Sep 23, 2026, 12_03_08 PM.png">
+          <source id="videoSource" src="Images/crackup-jignle.mp4" type="video/mp4">
+        </video>
+
+        <!-- ===== NON-FUNCTIONAL VIDEO CONTROLS ===== -->
+        <div class="video-controls">
+          <button class="video-ctrl-btn" aria-label="Play" title="Play">
+            <i class="fas fa-play"></i>
+          </button>
+          <button class="video-ctrl-btn" aria-label="Mute" title="Mute">
+            <i class="fas fa-volume-mute"></i>
+          </button>
+          <button class="video-ctrl-btn" aria-label="Fullscreen" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+
+        <div class="eflier" id="eflier" title="Click to expand / shrink">
+          <img id="flyerImg" src="Images/ChatGPT Image Sep 23, 2026, 12_03_08 PM.png" alt="Event e-flyer">
+        </div>
+      </div>
+    </div>
+
+    <div class="media-dots">
+      <span class="active"></span><span></span><span></span>
+    </div>
+
+    <div class="about-col" id="about">
+      <div class="pill-row">
+        <div class="pill">
+          <svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>
+          Doors open at 7:00pm
+        </div>
+        <div class="pill">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16l-1.2 12.5a2 2 0 0 1-2 1.5H7.2a2 2 0 0 1-2-1.5L4 7z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg>
+          Food and drink available for purchase
+        </div>
+      </div>
+
+      <h2>Crackup Comedy Live</h2>
+      <p>Crack Up Comedy is a live comedy experience bringing together some of Calabar's exciting comedy talents for an unforgettable night of laughter and entertainment. Featuring Chaliebaz, MC Bigpsalm, and Supaboy, with MC Mickey as host, Lord Saki as hypeman, and DJ Sprada on the decks.
+
+📍 Small Tent, Calabar Municipal Gardens
+📅 9th October
+🎟️ Entry is FREE — registration is required.
+
+Come for the comedy, stay for the vibes, and leave with unforgettable memories!</p>
+      <p>Suitable for ages 16 and up. Please note that some performances may include flashing lights, strobe effects or strong language. If you have any accessibility needs, contact our customer service team and we'll make sure your experience is enjoyable.</p>
+      <p class="walkins">Walk-ins welcome. Subject to availability.</p>
+    </div>
+  </section>
+
+  <aside class="booking-panel">
+    <h1 class="booking-title" id="bookingDate">Friday, October 9th</h1>
+    <div class="booking-time" id="bookingTime">07:00pm</div>
+
+    <div class="cal-box">
+      <div class="cal-head">
+        <div class="month-label">
+          <span class="nav-arrows"><button class="prevMonth" type="button">‹</button></span>
+          <span id="monthTitle">October 2026</span>
+          <span class="nav-arrows"><button class="nextMonth" type="button">›</button></span>
+        </div>
+        <button class="today-btn" type="button">Today</button>
+      </div>
+      <div class="cal-grid" id="calendar"></div>
+    </div>
+
+    <div class="time-chips">
+     
+    </div>
+
+    <a class="ticket" href="register.html">GET TICKETS</a>
+
+    <div class="livestream-title">
+     
+      
+      <span>Live Streaming</span>
+    </div>
+
+    <div class="african-diaspora-logo-wrap">
+      <img src="Images/ChatGPT Image Sep 26, 2026, 03_29_38 AM.png" alt="African Diaspora Channels logo">
+    </div>
+
+    <div class="socials" id="social">
+      <a href="https://facebook.com/crackupcomedyafrica" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://instagram.com/crackupcomedyafrica" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com/crackupcomedyafrica" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://youtube.com/@crackupcomedyafrica" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://tiktok.com/@crackupcomedyafrica" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+
+    <aside class="venue-side">
+      <h3 id="venueHeading">Crackup Comedy Calabar</h3>
+
+      <div class="venue-block">
+        <b>Venue</b>
+        <p id="venueAddress">Small Tent, Calabar Municipal Gardens,<br>Calabar, Cross River State, Nigeria</p>
+      </div>
+
+      
+
+      <div class="venue-block with-arrow">
+        <div class="txt">
+          <b>www.africandiasporachannels.com</b>
+           <p>Stream Live on africandiasporachannels.com.</p>
+        </div>
+        <button class="arrow-btn" aria-label="More venue information">→</button>
+      </div>
+
+      
+
+      <div class="venue-block">
+        <b>Share</b>
+        <div class="share-row">
+          <a href="https://facebook.com/crackupcomedyafrica" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/crackupcomedyafrica" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Copy link"><i class="fas fa-link"></i></a>
+        </div>
+      </div>
+    </aside>
+  </aside>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">crack<span>up</span> comedy</div>
+      <p>Live entertainment and unforgettable experiences.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Events</a>
+      <a href="#about">About</a>
+      <a href="#social">Social</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const locations = {
+    calabar: {
+      label: 'Calabar',
+      venueHeading: 'Calabar',
+      address: 'Small Tent, Calabar Municipal Gardens,<br>Calabar, Cross River State, Nigeria',
+      eventDate: 'Friday, October 9th',
+      eventTime: '07:00pm',
+      calendarMonth: 9,
+      calendarYear: 2026,
+      circledDays: [9, 29, 30],
+      videoSrc: 'Images/crackup-jignle.mp4',
+      posterSrc: 'Images/ChatGPT Image Sep 23, 2026, 12_03_08 PM.png',
+      flyerSrc: 'Images/ChatGPT Image Sep 23, 2026, 12_03_08 PM.png'
+    },
+    detroit: {
+      label: 'Detroit',
+      venueHeading: 'Detroit',
+      address: 'The Comedy Loft, 1234 Woodward Ave,<br>Detroit, MI 48226, USA',
+      eventDate: 'Wednesday, September 23rd',
+      eventTime: '08:00pm',
+      calendarMonth: 8,
+      calendarYear: 2026,
+      circledDays: [23],
+      videoSrc: 'Images/crackup-jignle.mp4',
+      posterSrc: 'Images/ChatGPT Image Sep 23, 2026, 12_03_08 PM.png',
+      flyerSrc: 'Images/ChatGPT Image Sep 23, 2026, 12_03_08 PM.png'
+    }
+  };
+
+  let currentLocation = 'calabar';
+  let viewDate = new Date(2026, 9, 1);
+  const today = new Date(2026, 9, 9);
+
+  const venueHeading = document.getElementById('venueHeading');
+  const venueAddress = document.getElementById('venueAddress');
+  const bookingDate = document.getElementById('bookingDate');
+  const bookingTime = document.getElementById('bookingTime');
+  const monthTitle = document.getElementById('monthTitle');
+  const calendarEl = document.getElementById('calendar');
+  const heroVideo = document.getElementById('heroVideo');
+  const videoSource = document.getElementById('videoSource');
+  const flyerImg = document.getElementById('flyerImg');
+  const eflyer = document.getElementById('eflier');
+
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+  const mobileNavPanel = document.getElementById('mobileNavPanel');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+
+  // ===== LOCATION DROPDOWN (from index2) =====
+  const locationToggle = document.getElementById('locationToggle');
+  const locationDropdown = document.getElementById('locationDropdown');
+  const locationText = document.getElementById('locationText');
+  const locationButtons = locationDropdown ? locationDropdown.querySelectorAll('button') : [];
+
+  function openLocationDropdown() {
+    locationDropdown.classList.add('open');
+    locationToggle.classList.add('open');
+    locationToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeLocationDropdown() {
+    locationDropdown.classList.remove('open');
+    locationToggle.classList.remove('open');
+    locationToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  if (locationToggle) {
+    locationToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (locationDropdown.classList.contains('open')) {
+        closeLocationDropdown();
+      } else {
+        openLocationDropdown();
+      }
+    });
+  }
+
+  locationButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const loc = btn.dataset.location;
+      locationText.textContent = loc;
+      locationButtons.forEach(b => b.classList.toggle('active', b === btn));
+      closeLocationDropdown();
+      // Switch location in the page
+      if (loc === 'Calabar') {
+        switchLocation('calabar');
+      } else if (loc === 'Detroit') {
+        switchLocation('detroit');
+      }
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (locationDropdown && locationDropdown.classList.contains('open')) {
+      if (!e.target.closest('#locationWrapper')) {
+        closeLocationDropdown();
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && locationDropdown && locationDropdown.classList.contains('open')) {
+      closeLocationDropdown();
+    }
+  });
+
+  // ===== SIGN IN PANEL (from index2) =====
+  const signinToggle = document.getElementById('signinToggle');
+  const signinOverlay = document.getElementById('signinOverlay');
+  const signinPanel = document.getElementById('signinPanel');
+  const signinClose = document.getElementById('signinClose');
+
+  function openSignin() {
+    signinOverlay.classList.add('open');
+    signinPanel.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeSignin() {
+    signinOverlay.classList.remove('open');
+    signinPanel.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+  }
+
+  if (signinToggle) signinToggle.addEventListener('click', openSignin);
+  if (signinClose) signinClose.addEventListener('click', closeSignin);
+  if (signinOverlay) signinOverlay.addEventListener('click', closeSignin);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && signinPanel && signinPanel.classList.contains('open')) {
+      closeSignin();
+    }
+  });
+
+  // ===== CALENDAR LOGIC =====
+  const pad = n => String(n).padStart(2, '0');
+  const key = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+
+  function renderCalendar() {
+    const y = viewDate.getFullYear();
+    const m = viewDate.getMonth();
+    const loc = locations[currentLocation];
+
+    const eventISO = key(loc.calendarYear, loc.calendarMonth, loc.circledDays[0]);
+
+    monthTitle.textContent = new Date(y, m, 1).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+    calendarEl.innerHTML = '';
+
+    ['S','M','T','W','T','F','S'].forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'dow';
+      el.textContent = d;
+      calendarEl.appendChild(el);
+    });
+
+    const first = new Date(y, m, 1).getDay();
+    const days = new Date(y, m + 1, 0).getDate();
+    const prevDays = new Date(y, m, 0).getDate();
+
+    for (let i = first - 1; i >= 0; i--) {
+      const span = document.createElement('div');
+      span.className = 'day muted';
+      span.textContent = prevDays - i;
+      calendarEl.appendChild(span);
+    }
+
+    for (let d = 1; d <= days; d++) {
+      const el = document.createElement('div');
+      const iso = key(y, m, d);
+      el.className = 'day';
+      el.textContent = d;
+      el.dataset.date = iso;
+
+      if (iso < eventISO) {
+        el.classList.add('past-date');
+        el.setAttribute('aria-disabled', 'true');
+        calendarEl.appendChild(el);
+        continue;
+      }
+
+      if (iso === eventISO) {
+        el.classList.add('active');
+        el.classList.add('circled');
+      }
+
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.cal-grid .day').forEach(x => x.classList.remove('active'));
+        el.classList.add('active');
+        bookingDate.textContent = new Date(iso + 'T12:00:00').toLocaleDateString('en-US', {
+          weekday: 'long', month: 'long'
+        }) + ' ' + d + (d % 100 >= 11 && d % 100 <= 13 ? 'th' : ({1:'st',2:'nd',3:'rd'}[d % 10] || 'th'));
+      });
+
+      calendarEl.appendChild(el);
+    }
+
+    const total = first + days;
+    const trailing = (7 - (total % 7)) % 7;
+    for (let d = 1; d <= trailing; d++) {
+      const span = document.createElement('div');
+      span.className = 'day muted';
+      span.textContent = d;
+      calendarEl.appendChild(span);
+    }
+  }
+
+  function changeMonth(n) {
+    viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + n, 1);
+    renderCalendar();
+  }
+
+  function goToday() {
+    viewDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    renderCalendar();
+  }
+
+  document.querySelectorAll('.prevMonth').forEach(btn => {
+    btn.addEventListener('click', () => changeMonth(-1));
+  });
+  document.querySelectorAll('.nextMonth').forEach(btn => {
+    btn.addEventListener('click', () => changeMonth(1));
+  });
+  document.querySelectorAll('.today-btn').forEach(btn => {
+    btn.addEventListener('click', goToday);
+  });
+
+  function switchLocation(locKey) {
+    if (!locations[locKey]) return;
+    currentLocation = locKey;
+    const loc = locations[locKey];
+
+    if (venueHeading) venueHeading.textContent = loc.venueHeading;
+    if (venueAddress) venueAddress.innerHTML = loc.address;
+    if (bookingDate) bookingDate.textContent = loc.eventDate;
+    if (bookingTime) bookingTime.textContent = loc.eventTime;
+
+    // Update location text in the nav
+    if (locationText) locationText.textContent = loc.label;
+
+    if (videoSource) videoSource.src = loc.videoSrc;
+    if (heroVideo) {
+      heroVideo.poster = loc.posterSrc;
+      heroVideo.load();
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => console.warn('Autoplay blocked:', err.message));
+      }
+    }
+
+    if (flyerImg) flyerImg.src = loc.flyerSrc;
+
+    viewDate = new Date(loc.calendarYear, loc.calendarMonth, 1);
+    renderCalendar();
+  }
+
+  document.querySelectorAll('.time-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  if (eflyer) {
+    eflyer.addEventListener('click', () => eflyer.classList.toggle('expanded'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') eflyer.classList.remove('expanded');
+    });
+  }
+
+  function openMobileNav() {
+    mobileNavOverlay.classList.add('open');
+    mobileNavPanel.classList.add('open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeMobileNav() {
+    mobileNavOverlay.classList.remove('open');
+    mobileNavPanel.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('no-scroll');
+  }
+
+  if (menuToggle && mobileNavOverlay && mobileNavPanel) {
+    menuToggle.addEventListener('click', openMobileNav);
+    mobileNavClose.addEventListener('click', closeMobileNav);
+    mobileNavOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileNavOverlay) closeMobileNav();
+    });
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+      link.addEventListener('click', closeMobileNav);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNavPanel.classList.contains('open')) closeMobileNav();
+    });
+  }
+
+  // Initial render
+  switchLocation('calabar');
+</script>
+</body>
+</html>
